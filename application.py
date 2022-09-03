@@ -10,7 +10,7 @@ USERS = {}
 def index():
     return 'Index Page' 
 
-@app.route("/users/<username>", methods=['GET', 'PUT'])
+@app.route("/users/<username>", methods=['GET', 'PUT', 'DELETE'])
 def access_or_update_user(username):
     if request.method == 'GET':
         user_details = USERS.get(username)
@@ -23,6 +23,10 @@ def access_or_update_user(username):
         if user_details:
             USERS.update({username : {'name': request.form['name']}})
             return Response(status=200)
+    else:
+        deleted_user = USERS.pop(username)
+        if deleted_user:
+            return jsonify(deleted_user), 200
 
 
 @app.route("/users", methods=['GET', 'POST'])
@@ -36,7 +40,7 @@ def all_users_or_add_new_user():
         else:
             return Response(status=409)
 
-        
+
 
 if __name__ == "__main__":
     app.run()

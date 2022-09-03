@@ -27,3 +27,11 @@ Feature: Handle storing, retrieving and deleting customer details # test/feature
     Given some users are in the system
     When I update the name of an existing user 'jasonb' to 'Jason Bateman'
     Then I should get a '200' response
+
+  Scenario: Delete an user
+  Given some users are in the system
+  When I delete the existing user 'jasonb'
+  Then I should get a '200' response
+  And the following user details are returned:
+    | name         |
+    | Jason Bourne |
