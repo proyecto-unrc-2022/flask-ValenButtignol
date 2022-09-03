@@ -36,11 +36,14 @@ def step_impl(context):
     assert "Mike Tyson" in context.page.text 
     assert "Will Smith" in context.page.text
 
-@when(u"I add a user \'lebronj\' as \'Lebron James\' that does not exists yet")
+@when(u"I add an user \'lebronj\' as \'Lebron James\' that does not exists yet")
 def step_impl(context):
     context.page = context.client.post('/users', data = {'username': 'lebronj', 'name': 'Lebron James'})
 
 @then(u"I should get a \'201\' response")
 def step_impl(context):
-    print(context.page.status_code)
     assert context.page.status_code is 201
+
+@when(u"I update the name of an existing user \'jasonb\' to \'Jason Bateman\'")
+def step_impl(context):
+    context.page = context.client.put('/users/{}'.format('jasonb'), data = {'username' : 'jasonb', 'name' : 'Jason Bateman'})

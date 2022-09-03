@@ -18,7 +18,12 @@ Feature: Handle storing, retrieving and deleting customer details # test/feature
       | Mike Tyson   |
       | Will Smith   |
 
-  Scenario: Add a new user.
+  Scenario: Add an new user.
     Given some users are in the system
-    When I add a user 'lebronj' as 'Lebron James' that does not exists yet
+    When I add an user 'lebronj' as 'Lebron James' that does not exists yet
     Then I should get a '201' response
+
+  Scenario: Update an user.
+    Given some users are in the system
+    When I update the name of an existing user 'jasonb' to 'Jason Bateman'
+    Then I should get a '200' response
