@@ -19,12 +19,17 @@ def access_users(username):
             return Response(status=404)
 
 
+
 @app.route("/users", methods=['GET', 'POST'])
 def all_users():
     if request.method == 'GET':
-        if USERS:   
-            return jsonify(USERS)
-    return Response(status=404)
+        return jsonify(USERS)
+    else:
+        if request.form['username'] not in USERS:
+            USERS.update({request.form['username']: {'name': request.form['name']}})
+            return Response(status=201) 
+        else:
+            return Response(status=409)
 
         
 
