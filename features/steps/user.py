@@ -4,7 +4,11 @@ from application import USERS
 
 @given('some users are in the system')
 def step_impl(context):
-    USERS.update({'jasonb': {'name': 'Jason Bourne'}})
+    USERS.update({
+      'jasonb': {'name': 'Jason Bourne'},
+      'miket': {'name': 'Mike Tyson'},
+      'wills': {'name': 'Will Smith'}
+    })
 
 @when(u'I retrieve the customer \'jasonb\'')
 def step_impl(context):
@@ -19,3 +23,15 @@ def step_impl(context):
 def step_impl(context):
     # assert context.table[0].cells[0] in context.page.text
     assert "Jason Bourne" in context.page.text
+
+
+@when('I retrieve all the customers')
+def step_impl(context):
+    context.page = context.client.get('/users')
+    assert context.page
+
+@then('the following users details are returned')
+def step_impl(context):
+    assert "Jason Bourne" in context.page.text 
+    assert "Mike Tyson" in context.page.text 
+    assert "Will Smith" in context.page.text
