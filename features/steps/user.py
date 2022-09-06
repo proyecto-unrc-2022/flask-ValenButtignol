@@ -46,7 +46,7 @@ def step_impl(context):
 
 @when(u"I update the name of an existing user \'jasonb\' to \'Jason Bateman\'")
 def step_impl(context):
-    context.page = context.client.put('/users/{}'.format('jasonb'), data={'jasonb': {'name': 'Jason Bateman'}})
+    context.page = context.client.put('/users/{}'.format('jasonb'), data=json.dumps({'jasonb': {'name': 'Jason Bateman'}}))
 
 @when("I delete the existing user \'jasonb\'")
 def step_impl(context):
