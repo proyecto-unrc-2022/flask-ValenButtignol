@@ -27,7 +27,7 @@ def step_impl(context):
 
 @when('I retrieve all the customers')
 def step_impl(context):
-    context.page = context.client.get('/users')
+    context.page = context.client.get('/users/')
     assert context.page
 
 @then('the following users details are returned')
@@ -38,7 +38,7 @@ def step_impl(context):
 
 @when(u"I add an user \'lebronj\' as \'Lebron James\' that does not exists yet")
 def step_impl(context):
-    context.page = context.client.post('/users', data = {'username': 'lebronj', 'name': 'Lebron James'})
+    context.page = context.client.post('/users/', data=json.dumps({'lebronj': {'name': 'Lebron James'}}))
 
 @then(u"I should get a \'201\' response")
 def step_impl(context):
@@ -46,7 +46,7 @@ def step_impl(context):
 
 @when(u"I update the name of an existing user \'jasonb\' to \'Jason Bateman\'")
 def step_impl(context):
-    context.page = context.client.put('/users/{}'.format('jasonb'), data = {'username' : 'jasonb', 'name' : 'Jason Bateman'})
+    context.page = context.client.put('/users/{}'.format('jasonb'), data={'jasonb': {'name': 'Jason Bateman'}})
 
 @when("I delete the existing user \'jasonb\'")
 def step_impl(context):
